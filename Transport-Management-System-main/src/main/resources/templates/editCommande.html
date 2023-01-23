@@ -1,0 +1,152 @@
+<!DOCTYPE html><!--je vais a decoree par la page template-->
+<html lang="en"xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+<meta charset="UTF-8">
+<title>Modifier une commande</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="col-md-6 offset-3">
+        <form method="post"th:action="@{save(page=${page},keyword=${keyword})} ">
+            <div>
+            <label>Numéro</label>
+                <label th:text="${intervention.id}">ID</label>
+            <input class="form-control" type="hidden" name="id" th:value="${intervention.id}">
+    </div>
+            <div>
+
+                <!--<form action="/action_page.php">
+                    <label for="myfile">Select a file:</label>
+                    <input type="file" id="myfile" name="nom" th:value="${intervention.nom}"><br>
+                    <span class="text-danger" th:errors ="${intervention.nom}"></span>
+                    <input type="submit">
+                </form>-->
+                <br>
+                <label>Référence du produit </label>
+                <input class="form-control" type="text" name="nom" th:value="${intervention.nom}">
+                <span class="text-danger" th:errors ="${intervention.nom}"></span>
+            </div>
+
+            <br>
+            <div>
+                <label>Date de la commande </label>
+                <input class="form-control"  type="Date" name="date_Programmation" th:value="${intervention.date_Programmation}">
+                <span class="text-danger" th:errors ="${intervention.date_Programmation}"></span>
+            </div>
+            <!-- <div >
+                 <label >Urgence </label>
+                 <select  class="form-select"    name="urgence">
+                     <option>Entrer le niveau d'urgence </option>
+                     <option value="Urgent" >Urgent</option>
+                     <option value="Dans la journée">Dans la journée</option>
+                     <option value="Dans la semaine">Dans la semaine</option>
+                 </select>
+             </div>-->
+            <br>
+            <div>
+                <label>Date de la livraison </label>
+                <input class="form-control"  type="DATE" name="date_acceptation" th:value="${intervention.date_acceptation}">
+                <span class="text-danger" th:errors ="${intervention.date_acceptation}"></span>
+            </div>
+            <div>
+                <label>État</label>
+                <select class="form-select"  name="Etat">
+                    <option>Entrer l'état de commande  </option>
+                    <option value="En attente">En attente</option>
+                    <option value="En cours">En cours</option>
+                    <option value="Livrée">Livrée</option>
+                </select>
+            </div>
+            <div>
+                <label>Ville </label>
+                <select name="Type_intervention" class="form-select" style="width: 100%;" id="stateSel" size="1">
+                    <option value="" selected="selected">sélectionner une ville</option>
+                </select>
+                <br>
+                <label>Nom et prénom du conducteur</label>
+                <select name="Nom_technicien" class="form-select" style="width: 100%;" id="countySel" size="1">
+                    <option value="" selected="selected">sélectionner un conducteur </option>
+                </select>
+                <br>
+                <div>
+                    <label>Quartier</label>
+                    <select name="type_service" class="form-select" style="width: 100%;" id="citySel" size="1">
+                        <option value=""  selected="selected">sélectionner un quartier  </option>
+                    </select>
+                </div>
+                <script>
+                    var stateObject = {
+                        "Casablanca": {
+                            "Assia Abd": ["Bourgogne","Maarif","L'Oasis",],
+                            "Asmaa Kh": ["Al Fida ","Ben M'sick ","Hay Hassani ", "Mers Sultan"],
+                            "Hicham Oub":["Bernossi","Moulay Rachid","Ain Sbaa", "sidi Moumen", "Hay mohamadi "]
+                        },
+                        "Rabat": {
+                            "Imane Abd": ["Agdal ", "Souissi ", "Riyad"],
+                            "Anas Abd": ["Kasbah des Oudayas ", "Hassan"]
+                        },
+                        "Marrakech": {
+                            "Rachid Ya": ["Guéliz", "L'Hivernage","Bab Doukkala"
+                                , "Ain Mezouar"],
+                            "Yassine El": ["Semlalia", "Mouassine",]
+                        }
+                    }
+                    window.onload = function(){
+                        var stateSel = document.getElementById("stateSel"),
+                            countySel = document.getElementById("countySel"),
+                            citySel = document.getElementById("citySel");
+
+                        for (var state in stateObject){
+                            stateSel.options[stateSel.options.length] = new Option(state, state);
+                        }
+
+                        stateSel.onchange = function(){
+                            countySel.length = 1;
+                            citySel.length =1;
+                            if(this.selectedIndes < 1) return;
+                            for(var county in stateObject[this.value]){
+                                countySel.options[countySel.options.length] = new Option(county, county);
+                            }
+                        }
+
+                        stateSel.onchange();
+
+                        countySel.onchange = function(){
+                            citySel.length = 1;
+                            if(this.selectedIndex < 1) return;
+
+                            var cities = stateObject[stateSel.value][this.value];
+                            for(var i = 0; i < cities.length; i++){
+                                citySel.options[citySel.options.length] = new Option(cities[i], cities[i]);
+                            }
+                        }
+                    }
+                </script>
+                <br>
+                <div>
+                    <label>Adresse</label>
+                    <textarea class="form-control" type="text" name="description" th:value="${intervention.description}"></textarea>
+                    <span class="text-danger" th:errors ="${intervention.description}"></span>
+                </div>
+                <br>
+                <div>
+                    <label>Description</label>
+                    <textarea class="form-control" type="text" name="description" th:value="${intervention.description}"></textarea>
+                    <span class="text-danger" th:errors ="${intervention.description}"></span>
+                </div></div>
+            <div class="d-grid gap-3">
+                <button type="submit"class="btn-primary">Modifier</button>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

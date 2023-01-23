@@ -1,0 +1,45 @@
+<!DOCTYPE html><!--je vais a decoree par la page template-->
+<html lang="en"xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier une zone </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="col-md-6 offset-3">
+        <form method="post"th:action="@{save1(page=${page},keyword=${keyword})} ">
+            <div>
+                <label>id</label>
+                <label th:text="${zone.id}">Nomber des Zones </label>
+                <input class="form-control" type="hidden" name="id" th:value="${zone.id}">
+            </div>
+            <div>
+                <label>Code postal</label>
+                <input class="form-control" type="text" name="codepostal" th:value="${zone.codepostal}">
+                <span class="text-danger" th:errors ="${zone.codepostal}"></span>
+            </div>
+            <div>
+                <label> Ville </label>
+                <input class="form-control" type="text" name="nom" th:value="${zone.nom}">
+                <span class="text-danger" th:errors ="${zone.nom}"></span>
+            </div>
+            <div>
+                <label>Quartier </label>
+                <input class="form-control" type="text" name="QUARTIER" th:value="${zone.QUARTIER}">
+                <span class="text-danger" th:errors ="${zone.QUARTIER}"></span>
+            </div>
+            <br>
+            <div class="d-grid gap-3">
+                <button type="submit"class="btn-primary">Modifier</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

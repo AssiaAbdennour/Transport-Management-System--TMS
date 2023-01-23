@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+      layout:decorate="template1" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des zones </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Liste des zones </h6>
+            </div>
+            <div >
+                <table class="table table-striped">
+                    <thead>
+                    <tr> <th> Code postal</th> <th>Ville</th><th>Quartier</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each ="z:${listzone}">
+                       <!-- <td th:text="${z.id}"></td>-->
+                        <td th:text="${z.codepostal} "></td>
+                        <td th:text="${z.nom}"></td>
+                        <td th:text="${z.QUARTIER}"></td>
+
+
+                        <td>
+                            <a onclick=" return confirm('êtes vous sûre')"  class="btn btn-outline-danger"th:href="@{deleteZone(id=${z.id},keyword=${keyword},page=${currentPage})}"><i class='fas fa-trash'></i></a></td>
+                        <td > <a  class="btn btn-outline-success"  th:href="@{editZone(id=${z.id},keyword=${keyword},page=${currentPage})}"><i class='fas fa-edit'></i></button></a></td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page, status:${pages}">
+                        <a th:class="${status.index==currentPage?'btn btn-primay ms-1':'btn btn-outline-primary ms-1'}"
+                           th:text="${status.index}"
+                           th:href="@{index2(page=${status.index},keyword=${keyword})}"
+                        ></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
